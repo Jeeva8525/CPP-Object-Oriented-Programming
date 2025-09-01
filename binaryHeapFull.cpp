@@ -47,7 +47,7 @@ public:
         }
         int minElt = arr[1];
         int lastElt = arr[len--];
-        percolateUp(1, lastElt);
+        percolateDown(1, lastElt);
         return minElt;
     }
     void percolateUp(int idx, int val)
@@ -103,17 +103,36 @@ public:
             if (val == arr[x])
             {
                 int lastElt = arr[len--];
-                percolateDown(x,lastElt);
+                percolateDown(x, lastElt);
                 break;
             }
         }
         cout << "No such element" << endl;
     }
+    void findKthMin(int n)
+    {
+        int temp = len;
+        int *arr2 = new int[len + 1];
+        for (int x = 1; x <= len; x++)
+        {
+            arr2[x] = arr[x];
+        }
+        for(int x = 1 ; x<n;x++)
+        {
+            deleteMin();
+        }
+        cout<<"The "<<n<<" - minimum element in the heap is "<<arr[1]<<endl;
+        len = temp;
+        for (int x = 1; x <= len; x++)
+        {
+            arr[x] = arr2[x];
+        }
+    }
 };
 int main()
 {
     binHeap h1;
-    cout << "1 : add an element\n2 : delete min element\n3 : delete an element\n4 : increase key\n5 : decrease key\n6 : exit" << endl;
+    cout << "1 : add an element\n2 : delete min element\n3 : delete an element\n4 : increase key\n5 : decrease key\n6 : Find the kth minimum elt in the heap\n7 : exit" << endl;
     int ch, val, index;
     do
     {
@@ -147,6 +166,11 @@ int main()
             cout << "Enter value : ";
             cin >> val;
             h1.decreaseKey(index, val);
+            break;
+        case 6:
+            cout<<"Enter k : ";
+            cin>>val;
+            h1.findKthMin(val);
             break;
         default:
             ch = 0;
