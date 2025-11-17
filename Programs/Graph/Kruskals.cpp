@@ -35,7 +35,7 @@ public:
 
         if(rank[ru] > rank[rv])
         {
-            parent[rv] = parent[ru];
+            parent[rv] = ru;
         }
         else if(rank[ru] < rank[rv])
         {
